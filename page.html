@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="page.css">
+    <title>Suitmedia</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="#">Suitmedia</a>
+            </div>
+            <nav>
+                <ul>
+                    <li class="menu-item"><a href="#">Work</a></li>
+                    <li class="menu-item"><a href="#">About</a></li>
+                    <li class="menu-item"><a href="#">Services</a></li>
+                    <li class="menu-item active"><a href="#">Ideas</a></li>
+                    <li class="menu-item"><a href="#">Careers</a></li>
+                    <li class="menu-item"><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header> 
+    <main>
+        <section class="banner">
+            <div class="banner-content">
+                <h1 class="banner-title">Ideas</h1>
+                <p class="banner-subtitle">Where all our great things begin</p>
+            </div>
+            <div class="banner-image-container">
+                <img src="img/banner-placeholder.jpg" alt="Banner Image" class="banner-image">
+            </div>
+        </section>
+        
+        <section class="ideas-content">
+            <div class="filters">
+                <div class="filter">
+                    <label for="show-per-page">Show per page:</label>
+                    <select id="show-per-page">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <label for="sort-by">Sort by:</label>
+                    <select id="sort-by">
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                    </select>
+                </div>
+            </div>
+        
+            <div class="content-container">
+                <!-- Cards -->
+            </div>
+        
+            <div class="pagination">
+                <button class="prev" disabled>Previous</button>
+                <div class="page-numbers"></div>
+                <button class="next">Next</button>
+            </div>
+        
+    </main>
+       
+   <script src="page.js" defer></script>
+
+</body>
+</html>
+
+
+
+
