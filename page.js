@@ -1,5 +1,4 @@
-
-    const posts = [
+const posts = [
     { id: 1, title: "Kenali Tingkatan Influencers berdasarkan Jumlah Followers", date: "2022-09-05", image: "img/image1.jpg" },
     { id: 2, title: "Jangan Asal Pilih Influencer, Berikut Cara Menyusun Strategi Influencer...", date: "2022-09-04", image: "img/image2.jpg" },
     { id: 3, title: "Kenali Tingkatan Influencers berdasarkan Jumlah Followers", date: "2022-09-03", image: "img/image1.jpg" },
@@ -31,19 +30,27 @@ let currentSort = "newest";
 let itemsPerPage = 10;
 let currentPage = 1;
 
+// Render posts based on the current page and sort order
 const renderPosts = () => {
     const container = document.querySelector(".content-container");
+    if (!container) {
+        console.error("Error: Content container not found!");
+        return;
+    }
     container.innerHTML = "";
 
+    // Sort posts
     const sortedPosts = [...posts].sort((a, b) => {
-        return currentSort === "newest"
-            ? new Date(b.date) - new Date(a.date)
-            : new Date(a.date) - new Date(b.date);
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return currentSort === "newest" ? dateB - dateA : dateA - dateB;
     });
 
+    // Pagination logic
     const startIndex = (currentPage - 1) * itemsPerPage;
     const paginatedPosts = sortedPosts.slice(startIndex, startIndex + itemsPerPage);
 
+    // Render posts
     paginatedPosts.forEach((post) => {
         const card = document.createElement("div");
         card.className = "idea-card";
@@ -57,20 +64,26 @@ const renderPosts = () => {
         container.appendChild(card);
     });
 
+    // Handle empty state
     if (paginatedPosts.length === 0) {
         container.innerHTML = "<p>No posts available.</p>";
-        return;
     }
-    
+
     renderPagination();
 };
 
+// Render pagination controls
 const renderPagination = () => {
     const pageNumbersContainer = document.querySelector(".page-numbers");
+    if (!pageNumbersContainer) {
+        console.error("Error: Page numbers container not found!");
+        return;
+    }
     pageNumbersContainer.innerHTML = "";
 
     const totalPages = Math.ceil(posts.length / itemsPerPage);
 
+    // Create page number elements
     for (let i = 1; i <= totalPages; i++) {
         const pageNumber = document.createElement("span");
         pageNumber.textContent = i;
@@ -85,30 +98,38 @@ const renderPagination = () => {
         pageNumbersContainer.appendChild(pageNumber);
     }
 
-    document.querySelector(".prev").disabled = currentPage === 1;
-    document.querySelector(".next").disabled = currentPage === totalPages;
+    // Enable/disable navigation buttons
+    const prevButton = document.querySelector(".prev");
+    const nextButton = document.querySelector(".next");
+
+    if (prevButton) prevButton.disabled = currentPage === 1;
+    if (nextButton) nextButton.disabled = currentPage === totalPages;
 };
 
-document.getElementById("sort-by").addEventListener("change", (event) => {
+// Event listener for sorting
+document.getElementById("sort-by")?.addEventListener("change", (event) => {
     currentSort = event.target.value;
     currentPage = 1;
     renderPosts();
 });
 
-document.getElementById("show-per-page").addEventListener("change", (event) => {
+// Event listener for items per page
+document.getElementById("show-per-page")?.addEventListener("change", (event) => {
     itemsPerPage = Number(event.target.value);
     currentPage = 1;
     renderPosts();
 });
 
-document.querySelector(".prev").addEventListener("click", () => {
+// Previous button
+document.querySelector(".prev")?.addEventListener("click", () => {
     if (currentPage > 1) {
         currentPage--;
         renderPosts();
     }
 });
 
-document.querySelector(".next").addEventListener("click", () => {
+// Next button
+document.querySelector(".next")?.addEventListener("click", () => {
     const totalPages = Math.ceil(posts.length / itemsPerPage);
     if (currentPage < totalPages) {
         currentPage++;
@@ -116,6 +137,5 @@ document.querySelector(".next").addEventListener("click", () => {
     }
 });
 
+// Initial render
 renderPosts();
-
-    
